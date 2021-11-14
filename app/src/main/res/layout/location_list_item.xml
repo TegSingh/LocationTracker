@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="horizontal"
     android:layout_centerHorizontal="true"
     android:maxHeight="50dp">
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="170dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
         android:id="@+id/textViewLocation"
@@ -19,7 +19,7 @@
         android:text="Update"
         android:id="@+id/updateLocation"
         android:layout_marginLeft="10dp"
-        android:backgroundTint="@color/black"
+        android:backgroundTint="#9A8C8C"
         />
 
     <Button
@@ -29,7 +29,7 @@
         android:id="@+id/deleteLocation"
         android:layout_marginRight="10dp"
         android:layout_marginLeft="10dp"
-        android:backgroundTint="@color/black"
+        android:backgroundTint="#E33434"
         />
 
 </LinearLayout>

@@ -13,6 +13,7 @@
         android:hint="Enter Address"
         android:id="@+id/editTextAddress"
         android:layout_marginTop="10dp"
+        android:textColorHint="@color/black"
         />
 
     <EditText
@@ -23,6 +24,7 @@
         android:id="@+id/editTextLatitude"
         android:layout_below="@+id/editTextAddress"
         android:layout_marginTop="10dp"
+        android:textColorHint="@color/black"
         />
 
     <EditText
@@ -33,6 +35,8 @@
         android:id="@+id/editTextLongitude"
         android:layout_below="@+id/editTextLatitude"
         android:layout_marginTop="10dp"
+        android:textColor="@color/black"
+        android:textColorHint="@color/black"
         />
 
     <Button
@@ -44,13 +48,16 @@
         android:layout_marginTop="10dp"
         android:text="Add Location"
         android:onClick="add_location"
+        android:backgroundTint="#21CF25"
         />
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/LocationListRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/LocationListRecyclerView"
         android:layout_below="@id/buttonSubmitLocation"
+        android:layout_marginTop="10dp"
+
         />
 
 
