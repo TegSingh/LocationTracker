@@ -1,6 +1,8 @@
 package com.example.locationtracker;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.graphics.Color;
 import android.location.Location;
@@ -20,11 +22,14 @@ public class MainActivity extends AppCompatActivity {
 
     // Create a helper for CRUD operations on the database
     LocationCRUD locationsHelper;
+    RecyclerView recyclerView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        System.out.println("Listing the Locations after creation of Main activity");
         // Call the method to display the locations on creation of the main activity
         displayLocationList();
     }
@@ -44,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
         String address = editTextAddress.getText().toString();
         String latitude = editTextLatitude.getText().toString();
         String longitude = editTextLongitude.getText().toString();
+
         // Create a random ID for testing
         int id = 1092;
         LocationModel location = new LocationModel(id, address, latitude, longitude);
@@ -65,23 +71,17 @@ public class MainActivity extends AppCompatActivity {
         locationsHelper = new LocationCRUD(this);
 
         // Display the list once the main activity is created
-        ListView listViewLocations = (ListView) findViewById(R.id.ListViewLocations);
+        RecyclerView recyclerViewLocations = (RecyclerView) findViewById(R.id.LocationListRecyclerView);
+
         // Get the array list of all locations
         List<LocationModel> locationModelList = locationsHelper.getAllLocations();
 
-        // Convert List to array list and print each element to be displayed
-        ArrayList<String> locationModelArrayList = new ArrayList<>();
-        for (int i = 0; i < locationModelList.size(); i++) {
-            locationModelArrayList.add(locationModelList.get(i).toString());
-            System.out.println(locationModelList.get(i).toString());
-        }
+        // Create a Linear Layout Manager object
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext());
+        recyclerViewLocations.setLayoutManager(linearLayoutManager);
 
-        // Create a locations list adapter
-        ArrayAdapter adapter = new ArrayAdapter<String>(
-                MainActivity.this,
-                android.R.layout.simple_list_item_1,
-                locationModelArrayList
-        );
-        listViewLocations.setAdapter(adapter);
+        // Create the Custom Adapter class
+        CustomAdapter customAdapter = new CustomAdapter(locationModelList, MainActivity.this);
+        recyclerViewLocations.setAdapter(customAdapter);
     }
 }

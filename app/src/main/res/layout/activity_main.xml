@@ -46,12 +46,12 @@
         android:onClick="add_location"
         />
 
-    <ListView
-        android:layout_width="wrap_content"
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/ListViewLocations"
-        android:layout_below="@+id/buttonSubmitLocation"
-        android:layout_marginTop="10dp"
+        android:id="@+id/LocationListRecyclerView"
+        android:layout_below="@id/buttonSubmitLocation"
         />
+
 
 </RelativeLayout>
