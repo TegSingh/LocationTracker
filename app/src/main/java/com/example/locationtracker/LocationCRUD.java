@@ -135,13 +135,46 @@ public class LocationCRUD extends SQLiteOpenHelper {
         System.out.println("Update location method called from Location CRUD Database helper");
         System.out.println("Previous location: " + location.toString());
         System.out.println("Updated location: " + location_updated.toString());
-        return true;
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put("id", location_updated.getId());
+        cv.put("address", location_updated.getAddress());
+        cv.put("latitude", location_updated.getLatitude());
+        cv.put("longitude", location_updated.getLongitude());
+        String whereClause = "id = ?";
+        Integer id = new Integer(location_updated.getId());
+        String whereArgs[] = {id.toString()};
+        int result = db.update(TABLE_NAME, cv, whereClause, whereArgs);
+        if (result == 1) {
+            System.out.println("Update successful");
+            return true;
+        } else {
+            System.out.println("Could not update");
+            return false;
+        }
     }
 
     public ArrayList<LocationModel> search_locations(String search_address) {
         System.out.println("Method to search location called from Location CRUD database helper with input: " + search_address);
-        ArrayList<LocationModel> filtered_locations;
-        filtered_locations = (ArrayList<LocationModel>) getAllLocations();
+        ArrayList<LocationModel> filtered_locations = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String query = "SELECT * FROM " + TABLE_NAME + " WHERE " + COLUMN_ADDRESS + " LIKE \'%" + search_address + "%\'";
+        Cursor cursor = db.rawQuery(query, null);
+        if (cursor.moveToFirst()) {
+            do {
+                // Get the variable names from the cursor
+                int id = cursor.getInt(0);
+                String address = cursor.getString(1);
+                String latitude = cursor.getString(2);
+                String longitude = cursor.getString(3);
+                LocationModel new_location = new LocationModel(id, address, latitude, longitude);
+                filtered_locations.add(new_location);
+
+            } while (cursor.moveToNext());
+        }
+
         return filtered_locations;
     }
 }

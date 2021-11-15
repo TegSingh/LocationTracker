@@ -2,6 +2,8 @@ package com.example.locationtracker;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -12,6 +14,7 @@ import java.util.ArrayList;
 public class UpdateActivity extends AppCompatActivity {
 
     LocationCRUD locationsHelper;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -21,6 +24,7 @@ public class UpdateActivity extends AppCompatActivity {
     }
 
     public void update_location_click_listener(View v) {
+
         locationsHelper = new LocationCRUD(getApplicationContext());
 
         Button buttonSubmitLocation = findViewById(R.id.buttonSubmitLocation);
@@ -55,8 +59,10 @@ public class UpdateActivity extends AppCompatActivity {
             System.out.println("Could not update location");
         }
 
-        // Finish the activity after the updating the instance
-        finish();
+        // Move to the main activity upon making any changes
+        Intent updateIntentReload = new Intent(this, MainActivity.class);
+        startActivity(updateIntentReload);
+
 
     }
 }

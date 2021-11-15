@@ -99,6 +99,22 @@ public class MainActivity extends AppCompatActivity {
         String search_address = editTextSearchAddress.getText().toString();
 
         ArrayList<LocationModel> filtered_locations = locationsHelper.search_locations(search_address);
+
+        if (filtered_locations.size() >= 1) {
+            System.out.println("Locations found: " + filtered_locations.size());
+        } else {
+            System.out.println("No locations match the search input");
+        }
+
+        RecyclerView recyclerViewSearchLocations = (RecyclerView) findViewById(R.id.LocationListRecyclerView);
+
+        // Create a Linear Layout Manager object
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager((getApplicationContext()));
+        recyclerViewSearchLocations.setLayoutManager(linearLayoutManager);
+
+        CustomAdapter customAdapter = new CustomAdapter(filtered_locations, MainActivity.this);
+        recyclerViewSearchLocations.setAdapter(customAdapter);
+
     }
 
 }

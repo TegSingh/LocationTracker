@@ -64,6 +64,8 @@ public class CustomAdapter extends RecyclerView.Adapter {
 
                 context.startActivity(updateIntent);
 
+                System.out.println("Back to custom adapter post update");
+
             }
         });
 
