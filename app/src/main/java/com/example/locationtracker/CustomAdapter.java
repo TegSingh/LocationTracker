@@ -64,6 +64,10 @@ public class CustomAdapter extends RecyclerView.Adapter {
                 } else {
                     System.out.println("Could not find row to delete");
                 }
+
+                // Restart the activity upon making any changes
+                Intent myIntent = new Intent(context, MainActivity.class);
+                context.startActivity(myIntent);
             }
         });
     }
