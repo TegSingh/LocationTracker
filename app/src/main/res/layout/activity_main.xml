@@ -57,7 +57,6 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/buttonSubmitLocation"
         android:layout_marginTop="10dp"
-
         />
 
 

@@ -24,7 +24,7 @@ public class LocationCRUD extends SQLiteOpenHelper {
     public static final String COLUMN_LONGITUDE = "LONGITUDE";
 
     // Using default constructor matching super s.t. whenever the constructor is called the database is created
-    public LocationCRUD(@Nullable Context context) {
+    public LocationCRUD(Context context) {
         super(context, DATABASE_NAME, null, 1);
         System.out.println("LocationCRUD constructor is called");
         SQLiteDatabase db = this.getWritableDatabase();
@@ -97,5 +97,36 @@ public class LocationCRUD extends SQLiteOpenHelper {
         db.close();
         cur.close();
         return location_list;
+    }
+
+    // Method to delete the location based on specified ID
+    public boolean deleteLocation(int id) {
+
+        // Define the database
+        SQLiteDatabase db = this.getWritableDatabase();
+        Integer col_id = id;
+        String[] args = {col_id.toString()};
+        int num_rows_deleted = 0;
+        try {
+            num_rows_deleted = db.delete(TABLE_NAME, COLUMN_ID + " = ? ", args);
+        } catch (Exception e) {
+            System.out.println("ERROR executing query");
+            db.close();
+            return false;
+        }
+
+        if (num_rows_deleted == 1) {
+            System.out.println("Row deleted successfully");
+            db.close();
+            return true;
+        } else if (num_rows_deleted == 0) {
+            System.out.println("Error deleting row: Row not found");
+            db.close();
+            return false;
+        } else {
+            System.out.println("Error deleting row: too many rows deleted: " + num_rows_deleted);
+            db.close();
+            return true;
+        }
     }
 }

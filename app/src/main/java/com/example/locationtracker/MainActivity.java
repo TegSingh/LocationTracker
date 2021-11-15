@@ -84,4 +84,11 @@ public class MainActivity extends AppCompatActivity {
         CustomAdapter customAdapter = new CustomAdapter(locationModelList, MainActivity.this);
         recyclerViewLocations.setAdapter(customAdapter);
     }
+
+//    public void updateLocation() {
+//        System.out.println("Update Location method called from main activity");
+//    }
+//    public void deleteLocation() {
+//        System.out.println("Delete Location method called from main activity");
+//    }
 }

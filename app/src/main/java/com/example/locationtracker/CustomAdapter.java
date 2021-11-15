@@ -2,6 +2,8 @@ package com.example.locationtracker;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
+import android.location.Location;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +19,7 @@ import java.util.List;
 // Create a custom adapter to work between recycler view layout and linear layout
 public class CustomAdapter extends RecyclerView.Adapter {
 
+    LocationCRUD locationsHelper;
     List<LocationModel> locations;
     Context context;
 
@@ -25,7 +28,6 @@ public class CustomAdapter extends RecyclerView.Adapter {
         this.locations = locations;
         this.context = context;
     }
-
 
     // This method inflates the location_list_item.xml layout
     @NonNull
@@ -53,7 +55,15 @@ public class CustomAdapter extends RecyclerView.Adapter {
         listViewHolder.deleteLocation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                locationsHelper = new LocationCRUD(v.getContext());
+
                 System.out.println("Delete Location button clicked for location: " + locations.get(position));
+                boolean result = locationsHelper.deleteLocation(locations.get(position).getId());
+                if (result) {
+                    System.out.println("Adapter: Row deleted successfully");
+                } else {
+                    System.out.println("Could not find row to delete");
+                }
             }
         });
     }
