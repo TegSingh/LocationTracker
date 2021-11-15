@@ -39,6 +39,9 @@ public class MainActivity extends AppCompatActivity {
 
         System.out.println("Add location method has been called from Main activity");
 
+        // ADD INTENT TO NEW ACTIVITY HERE
+
+        /*
         // Create the View instance for all the Views in Main Activity
         Button buttonSubmitLocation = findViewById(R.id.buttonSubmitLocation);
         EditText editTextAddress = findViewById(R.id.editTextAddress);
@@ -64,6 +67,7 @@ public class MainActivity extends AppCompatActivity {
             displayLocationList();
             Toast.makeText(this, "ERROR CANT ADD LOCATION", Toast.LENGTH_LONG);
         }
+        */
     }
 
     // Method to display the entire list
