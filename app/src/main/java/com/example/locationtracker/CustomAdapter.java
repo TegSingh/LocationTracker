@@ -48,7 +48,22 @@ public class CustomAdapter extends RecyclerView.Adapter {
         listViewHolder.updateLocation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                System.out.println("Update Location button clicked for location: " + locations.get(position));
+                System.out.println("Update Location button clicked for location: " + locations.get(position).toString());
+
+                // Move the control to another activity which inputes the values required to update
+                Intent updateIntent = new Intent(context, UpdateActivity.class);
+                ArrayList<String> location_arraylist = new ArrayList<>();
+
+                // Add information about the location to the intent
+                Integer id = locations.get(position).getId();
+                location_arraylist.add(id.toString());
+                location_arraylist.add(locations.get(position).getAddress());
+                location_arraylist.add(locations.get(position).getLatitude());
+                location_arraylist.add(locations.get(position).getLongitude());
+                updateIntent.putExtra("location", location_arraylist);
+
+                context.startActivity(updateIntent);
+
             }
         });
 
@@ -66,8 +81,8 @@ public class CustomAdapter extends RecyclerView.Adapter {
                 }
 
                 // Restart the activity upon making any changes
-                Intent myIntent = new Intent(context, MainActivity.class);
-                context.startActivity(myIntent);
+                Intent deleteIntent = new Intent(context, MainActivity.class);
+                context.startActivity(deleteIntent);
             }
         });
     }

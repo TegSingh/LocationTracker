@@ -6,56 +6,41 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <EditText
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:hint="Enter Address"
-        android:id="@+id/editTextAddress"
-        android:layout_marginTop="10dp"
-        android:textColorHint="@color/black"
-        />
+        android:id="@+id/searchLinearLayout"
+        android:layout_marginTop="20dp"
+        >
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:hint="Enter Latitude"
-        android:id="@+id/editTextLatitude"
-        android:layout_below="@+id/editTextAddress"
-        android:layout_marginTop="10dp"
-        android:textColorHint="@color/black"
-        />
+        <EditText
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:hint="Enter search Address"
+            android:textColorHint="@color/black"
+            android:id="@+id/editTextSearchAddress"
+            android:layout_marginLeft="10dp"
+            />
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:hint="Enter Longitude"
-        android:id="@+id/editTextLongitude"
-        android:layout_below="@+id/editTextLatitude"
-        android:layout_marginTop="10dp"
-        android:textColor="@color/black"
-        android:textColorHint="@color/black"
-        />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/buttonSearchAddress"
+            android:text="Search"
+            android:onClick="search_location"
+            android:backgroundTint="@color/black"
+            android:layout_toRightOf="@id/editTextSearchAddress"
+            android:layout_marginLeft="10dp"
+            />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:id="@+id/buttonSubmitLocation"
-        android:layout_below="@+id/editTextLongitude"
-        android:layout_marginTop="10dp"
-        android:text="Add Location"
-        android:onClick="add_location"
-        android:backgroundTint="#21CF25"
-        />
+    </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/LocationListRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/buttonSubmitLocation"
+        android:layout_below="@id/searchLinearLayout"
         android:layout_marginTop="10dp"
         />
 

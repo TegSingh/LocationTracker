@@ -85,10 +85,16 @@ public class MainActivity extends AppCompatActivity {
         recyclerViewLocations.setAdapter(customAdapter);
     }
 
-//    public void updateLocation() {
-//        System.out.println("Update Location method called from main activity");
-//    }
-//    public void deleteLocation() {
-//        System.out.println("Delete Location method called from main activity");
-//    }
+    // On click listener for search location button
+    public void search_location(View v) {
+
+        locationsHelper = new LocationCRUD(this);
+
+        System.out.println("Method to search Location called from Main activity");
+        EditText editTextSearchAddress = findViewById(R.id.editTextSearchAddress);
+        String search_address = editTextSearchAddress.getText().toString();
+
+        ArrayList<LocationModel> filtered_locations = locationsHelper.search_locations(search_address);
+    }
+
 }

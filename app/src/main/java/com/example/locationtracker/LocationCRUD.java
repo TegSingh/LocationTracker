@@ -129,4 +129,19 @@ public class LocationCRUD extends SQLiteOpenHelper {
             return true;
         }
     }
+
+    // Method to update a certain Location
+    public boolean updateLocation(LocationModel location, LocationModel location_updated) {
+        System.out.println("Update location method called from Location CRUD Database helper");
+        System.out.println("Previous location: " + location.toString());
+        System.out.println("Updated location: " + location_updated.toString());
+        return true;
+    }
+
+    public ArrayList<LocationModel> search_locations(String search_address) {
+        System.out.println("Method to search location called from Location CRUD database helper with input: " + search_address);
+        ArrayList<LocationModel> filtered_locations;
+        filtered_locations = (ArrayList<LocationModel>) getAllLocations();
+        return filtered_locations;
+    }
 }
