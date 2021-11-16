@@ -85,8 +85,8 @@ public class LocationCRUD extends SQLiteOpenHelper {
             do {
                 int id = cur.getInt(0);
                 String address = cur.getString(1);
-                String latitude = cur.getString(2);
-                String longitude = cur.getString(3);
+                float latitude = cur.getFloat(2);
+                float longitude = cur.getFloat(3);
 
                 //make note and add to list
                 LocationModel location = new LocationModel(id, address, latitude, longitude);
@@ -168,8 +168,8 @@ public class LocationCRUD extends SQLiteOpenHelper {
                 // Get the variable names from the cursor
                 int id = cursor.getInt(0);
                 String address = cursor.getString(1);
-                String latitude = cursor.getString(2);
-                String longitude = cursor.getString(3);
+                float latitude = cursor.getFloat(2);
+                float longitude = cursor.getFloat(3);
                 LocationModel new_location = new LocationModel(id, address, latitude, longitude);
                 filtered_locations.add(new_location);
 

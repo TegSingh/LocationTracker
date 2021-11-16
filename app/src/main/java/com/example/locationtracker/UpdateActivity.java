@@ -42,14 +42,14 @@ public class UpdateActivity extends AppCompatActivity {
         ArrayList<String> extrasList = extras.getStringArrayList("location");
         int id = new Integer(extrasList.get(0));
         String address = extrasList.get(1);
-        String latitude = extrasList.get(2);
-        String longitude = extrasList.get(3);
+        float latitude = Float.parseFloat(extrasList.get(2));
+        float longitude = Float.parseFloat(extrasList.get(3));
 
         // Create an object for previous location
         LocationModel location = new LocationModel(id, address, latitude, longitude);
 
         // Create an object for location to be updated
-        LocationModel location_updated = new LocationModel(id, address_updated, latitude_updated, longitude_updated);
+        LocationModel location_updated = new LocationModel(id, address_updated, Float.parseFloat(latitude_updated), Float.parseFloat(longitude_updated));
         boolean result = locationsHelper.updateLocation(location, location_updated);
 
         // Check if update method in database helper was executed successfully

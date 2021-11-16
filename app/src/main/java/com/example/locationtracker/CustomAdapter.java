@@ -58,8 +58,10 @@ public class CustomAdapter extends RecyclerView.Adapter {
                 Integer id = locations.get(position).getId();
                 location_arraylist.add(id.toString());
                 location_arraylist.add(locations.get(position).getAddress());
-                location_arraylist.add(locations.get(position).getLatitude());
-                location_arraylist.add(locations.get(position).getLongitude());
+                Float latitude = locations.get(position).getLatitude();
+                location_arraylist.add(latitude.toString());
+                Float longitude = locations.get(position).getLongitude();
+                location_arraylist.add(longitude.toString());
                 updateIntent.putExtra("location", location_arraylist);
 
                 context.startActivity(updateIntent);
