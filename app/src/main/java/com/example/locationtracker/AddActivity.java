@@ -2,11 +2,16 @@ package com.example.locationtracker;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.location.Address;
+import android.location.Geocoder;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.io.IOException;
+import java.util.List;
+import java.util.Locale;
 import java.util.Random;
 
 public class AddActivity extends AppCompatActivity {
@@ -20,8 +25,11 @@ public class AddActivity extends AppCompatActivity {
     }
 
     public void generate_address(View view) {
+
         System.out.println("Generate address called from the Add Activity");
 
+        // Create a geocoder object
+        Geocoder geocoder = new Geocoder(getApplicationContext(), Locale.getDefault());
         EditText inputLatitude = findViewById(R.id.inputLatitude);
         EditText inputLongitude = findViewById(R.id.inputLongitude);
         String latitude_string = inputLatitude.getText().toString();
@@ -52,16 +60,51 @@ public class AddActivity extends AppCompatActivity {
             flag = false;
         }
 
+        String address_final = "";
+
         if (flag) {
-            String address = "Generated Address";
-            added_location = new LocationModel(99999, address, latitude, longitude);
+
+            try {
+                // Returns a list of Address objects
+                List<Address> generated_addresses = geocoder.getFromLocation((double) latitude, (double) longitude, 1);
+
+                if (generated_addresses.size() == 0) {
+                    Toast.makeText(this, "Geocoder could not generate address for input latitude and longitude. Try again with different values", Toast.LENGTH_SHORT).show();
+                } else {
+
+                    Address generated_address = generated_addresses.get(0); // Get the first element from the list of generated address
+
+                    // Build a string for the final address
+                    address_final = generated_address.getAddressLine(0).toString();
+
+                    // Add postal code if available
+                    if (generated_address.getPostalCode() != null) {
+                        address_final += " ";
+                        address_final += generated_address.getPostalCode().toString();
+                    } else {
+                        System.out.println("Could not load postal code");
+                    }
+
+                    System.out.println("Generated Address: " + address_final);
+                }
+
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            added_location = new LocationModel(99999, address_final, latitude, longitude);
             System.out.println(added_location.toString());
         }
     }
 
     // On click listener for a button to generate random address
     public void generate_random_address(View view) {
+
         System.out.println("Generate Random address called from the Add activity");
+
+        // Create a geocoder object
+        Geocoder geocoder = new Geocoder(getApplicationContext(), Locale.getDefault());
 
         // Generate a random latitude and longitude and display
         float latitude = (float) Math.random() * (180) - 90;
@@ -69,15 +112,38 @@ public class AddActivity extends AppCompatActivity {
         System.out.println("Random Latitude: " + latitude);
         System.out.println("Random Longitude: " + longitude);
 
-        String address = "Randomly Generated Address";
-        added_location = new LocationModel(99999, address, latitude, longitude);
-        System.out.println(added_location.toString());
+        String address_final = "";
 
+        try {
+            List<Address> generated_addresses = geocoder.getFromLocation((double) latitude, (double) longitude, 1);
+
+            if (generated_addresses.size() == 0) {
+                Toast.makeText(this, "Geocoder could not generate address. Try again", Toast.LENGTH_SHORT).show();;
+            } else {
+                Address generated_address = generated_addresses.get(0); // Get the first element from the list of generated address
+
+                // Build a string for the final address
+                address_final = generated_address.getAddressLine(0).toString();
+
+                if (generated_address.getPostalCode() != null) {
+                    address_final += " ";
+                    address_final += generated_address.getPostalCode().toString();
+                }
+
+                System.out.println("Generated Address: " + address_final);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        added_location = new LocationModel(99999, address_final, latitude, longitude);
+        System.out.println(added_location.toString());
     }
 
     // On click listener to add the location and return to the main activity
     public void add_location_return(View view) {
         System.out.println("Add location and return method called from the Add activity");
+
         // Go back to the main activity
         finish();
     }
