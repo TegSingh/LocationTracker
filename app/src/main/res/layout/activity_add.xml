@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AddActivity">
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/inputLatitude"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="20dp"
+        android:textColor="@color/black"
+        android:textColorHint="@color/black"
+        android:text="Enter Latitude"
+        />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/inputLongitude"
+        android:text="Enter Longitude"
+        android:textColorHint="@color/black"
+        android:textColor="@color/black"
+        android:layout_marginBottom="10dp"
+        android:layout_below="@+id/inputLatitude"
+        />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/buttonGenerateAddress"
+        android:textColor="@color/black"
+        android:text="Generate address"
+        android:layout_marginBottom="10dp"
+        android:backgroundTint="#BBC3C2"
+        android:layout_below="@+id/inputLongitude"
+        android:layout_centerHorizontal="true"
+        android:onClick="generate_address"
+        />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/buttonGenerateRandomLocation"
+        android:textColor="@color/black"
+        android:text="Choose Random address"
+        android:layout_marginBottom="10dp"
+        android:backgroundTint="#BBC3C2"
+        android:layout_below="@+id/buttonGenerateAddress"
+        android:layout_centerHorizontal="true"
+        android:onClick="generate_random_address"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/linearLayoutAddressDisplay"
+        android:layout_below="@id/buttonGenerateRandomLocation"
+        android:layout_marginTop="10dp"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textViewLatitude"
+            android:text="Address"
+            android:layout_below="@+id/buttonGenerateRandomLocation"
+            android:layout_marginLeft="10dp"
+            android:textSize="20dp"
+            android:textColor="@color/black"
+            android:background="#B8C3C2"
+            android:paddingVertical="3dp"
+            android:paddingHorizontal="10dp"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textViewDisplayAddress"
+            android:textColor="@color/black"
+            android:layout_marginLeft="10dp"
+            />
+
+    </LinearLayout>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#152E59"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="10dp"
+        android:text="Add Location and return"
+        android:textColor="@color/white"
+        android:onClick="add_location_return"
+        android:id="@+id/buttonAddLocationAndReturn"
+        />
+
+
+</RelativeLayout>

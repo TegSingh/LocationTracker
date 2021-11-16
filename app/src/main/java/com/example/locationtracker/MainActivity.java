@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.location.Location;
 import android.os.Bundle;
@@ -40,6 +41,8 @@ public class MainActivity extends AppCompatActivity {
         System.out.println("Add location method has been called from Main activity");
 
         // ADD INTENT TO NEW ACTIVITY HERE
+        Intent addIntent = new Intent(this, AddActivity.class);
+        startActivity(addIntent);
 
         /*
         // Create the View instance for all the Views in Main Activity

@@ -156,6 +156,7 @@ public class LocationCRUD extends SQLiteOpenHelper {
     }
 
     public ArrayList<LocationModel> search_locations(String search_address) {
+
         System.out.println("Method to search location called from Location CRUD database helper with input: " + search_address);
         ArrayList<LocationModel> filtered_locations = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();

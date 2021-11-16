@@ -11,6 +11,8 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
         android:id="@+id/textViewLocation"
+        android:textColor="@color/black"
+        android:textSize="15dp"
         />
 
     <Button
