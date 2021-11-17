@@ -2,12 +2,17 @@ package com.example.locationtracker;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import org.w3c.dom.Text;
 
 import java.io.IOException;
 import java.util.List;
@@ -22,6 +27,8 @@ public class AddActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add);
+        // Reinitialize the added location variable every time the new activity is created
+        added_location = null;
     }
 
     public void generate_address(View view) {
@@ -32,6 +39,8 @@ public class AddActivity extends AppCompatActivity {
         Geocoder geocoder = new Geocoder(getApplicationContext(), Locale.getDefault());
         EditText inputLatitude = findViewById(R.id.inputLatitude);
         EditText inputLongitude = findViewById(R.id.inputLongitude);
+        TextView textViewDisplayAddress = findViewById(R.id.textViewDisplayAddress);
+
         String latitude_string = inputLatitude.getText().toString();
         String longitude_string = inputLongitude.getText().toString();
 
@@ -67,9 +76,9 @@ public class AddActivity extends AppCompatActivity {
             try {
                 // Returns a list of Address objects
                 List<Address> generated_addresses = geocoder.getFromLocation((double) latitude, (double) longitude, 1);
-
                 if (generated_addresses.size() == 0) {
                     Toast.makeText(this, "Geocoder could not generate address for input latitude and longitude. Try again with different values", Toast.LENGTH_SHORT).show();
+                    address_final = "Geocoder cannot generate address";
                 } else {
 
                     Address generated_address = generated_addresses.get(0); // Get the first element from the list of generated address
@@ -86,6 +95,7 @@ public class AddActivity extends AppCompatActivity {
                     }
 
                     System.out.println("Generated Address: " + address_final);
+                    textViewDisplayAddress.setText(address_final);
                 }
 
 
@@ -105,6 +115,7 @@ public class AddActivity extends AppCompatActivity {
 
         // Create a geocoder object
         Geocoder geocoder = new Geocoder(getApplicationContext(), Locale.getDefault());
+        TextView textViewDisplayAddress = findViewById(R.id.textViewDisplayAddress);
 
         // Generate a random latitude and longitude and display
         float latitude = (float) Math.random() * (180) - 90;
@@ -118,7 +129,8 @@ public class AddActivity extends AppCompatActivity {
             List<Address> generated_addresses = geocoder.getFromLocation((double) latitude, (double) longitude, 1);
 
             if (generated_addresses.size() == 0) {
-                Toast.makeText(this, "Geocoder could not generate address. Try again", Toast.LENGTH_SHORT).show();;
+                Toast.makeText(this, "Geocoder could not generate address. Try again", Toast.LENGTH_SHORT).show();
+                address_final = "Geocoder cannot generate address";
             } else {
                 Address generated_address = generated_addresses.get(0); // Get the first element from the list of generated address
 
@@ -131,6 +143,8 @@ public class AddActivity extends AppCompatActivity {
                 }
 
                 System.out.println("Generated Address: " + address_final);
+                textViewDisplayAddress.setText(address_final);
+
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -140,9 +154,33 @@ public class AddActivity extends AppCompatActivity {
         System.out.println(added_location.toString());
     }
 
+    // Method to add 50 random locations
+    public void add_random_locations() {
+        System.out.println("Method to add 50 random locations to the database");
+    }
+
     // On click listener to add the location and return to the main activity
     public void add_location_return(View view) {
         System.out.println("Add location and return method called from the Add activity");
+
+        if (added_location == null) {
+            System.out.println("No locations added");
+            Intent add_location_return = new Intent(getApplicationContext(), MainActivity.class);
+            startActivity(add_location_return);
+
+        } else {
+            // Adding last generated location
+            LocationCRUD locationsHelper = new LocationCRUD(getApplicationContext());
+            boolean result = locationsHelper.insertLocation(added_location);
+            if (result) {
+                System.out.println("Location added successfully");
+            } else {
+                System.out.println("Could not add location");
+            }
+
+            Intent add_location_return = new Intent(getApplicationContext(), MainActivity.class);
+            startActivity(add_location_return);
+        }
 
         // Go back to the main activity
         finish();

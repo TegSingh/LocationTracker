@@ -8,12 +8,14 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Switch;
 
 import java.util.ArrayList;
 
 public class UpdateActivity extends AppCompatActivity {
 
     LocationCRUD locationsHelper;
+    boolean flag;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,6 +23,17 @@ public class UpdateActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_update);
 
+    }
+
+    // On click listener for the switch
+    public void autoGenerateSwitch(View view) {
+        System.out.println("Change switch method listener called");
+        Switch switchAutoGenerate = findViewById(R.id.switchAutoGenerate);
+        if (switchAutoGenerate.isChecked()) {
+
+        } else {
+
+        }
     }
 
     public void update_location_click_listener(View v) {

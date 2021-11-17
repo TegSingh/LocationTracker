@@ -45,6 +45,12 @@ public class CustomAdapter extends RecyclerView.Adapter {
         // Set the attributes and onClickListener
         listViewHolder.textViewLocation.setText(locations.get(position).getAddress());
 
+        // Convert Float to String
+        Float latitude_float = locations.get(position).getLatitude();
+        Float longitude_float = locations.get(position).getLongitude();
+        listViewHolder.textViewLatitude.setText("Latitude: " + latitude_float.toString());
+        listViewHolder.textViewLongitude.setText("Longitude: " + longitude_float.toString());
+
         listViewHolder.updateLocation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -100,12 +106,17 @@ public class CustomAdapter extends RecyclerView.Adapter {
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         TextView textViewLocation;
+        TextView textViewLatitude;
+        TextView textViewLongitude;
+
         Button updateLocation;
         Button deleteLocation;
 
         public ViewHolder(@NonNull View location_list_item) {
             super(location_list_item);
             textViewLocation = location_list_item.findViewById(R.id.textViewLocation);
+            textViewLatitude = location_list_item.findViewById(R.id.textViewLatitude);
+            textViewLongitude = location_list_item.findViewById(R.id.textViewLongitude);
             updateLocation = location_list_item.findViewById(R.id.updateLocation);
             deleteLocation = location_list_item.findViewById(R.id.deleteLocation);
 
