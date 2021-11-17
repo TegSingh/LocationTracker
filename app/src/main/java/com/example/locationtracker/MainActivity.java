@@ -44,33 +44,6 @@ public class MainActivity extends AppCompatActivity {
         Intent addIntent = new Intent(this, AddActivity.class);
         startActivity(addIntent);
 
-        /*
-        // Create the View instance for all the Views in Main Activity
-        Button buttonSubmitLocation = findViewById(R.id.buttonSubmitLocation);
-        EditText editTextAddress = findViewById(R.id.editTextAddress);
-        EditText editTextLatitude = findViewById(R.id.editTextLatitude);
-        EditText editTextLongitude = findViewById(R.id.editTextLongitude);
-
-        // Get values from the edit texts
-        String address = editTextAddress.getText().toString();
-        String latitude = editTextLatitude.getText().toString();
-        String longitude = editTextLongitude.getText().toString();
-
-        // Create a random ID for testing
-        int id = 1092;
-        LocationModel location = new LocationModel(id, address, latitude, longitude);
-        System.out.println("About to call insertLocation method");
-
-        boolean result = locationsHelper.insertLocation(location);
-        if (result == true) {
-            System.out.println("Location added successfully");
-            displayLocationList();
-        } else {
-            System.out.println("Could not add location to the list");
-            displayLocationList();
-            Toast.makeText(this, "ERROR CANT ADD LOCATION", Toast.LENGTH_LONG);
-        }
-        */
     }
 
     // Method to display the entire list
@@ -82,6 +55,11 @@ public class MainActivity extends AppCompatActivity {
 
         // Get the array list of all locations
         List<LocationModel> locationModelList = locationsHelper.getAllLocations();
+
+        System.out.println("Number of items in the list: " + locationModelList.size());
+        for (LocationModel location: locationModelList) {
+            System.out.println(location.toString());
+        }
 
         // Create a Linear Layout Manager object
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext());

@@ -16,25 +16,13 @@
         android:textColorHint="@color/black"
         />
 
-    <Switch
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/switchAutoGenerate"
-        android:layout_below="@+id/editTextAddress"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="10dp"
-        android:text="Auto-generate Latitude and Longitude"
-        android:layout_centerHorizontal="true"
-        android:onClick="autoGenerateSwitch"
-        />
-
     <EditText
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:hint="Enter Latitude"
         android:id="@+id/editTextLatitude"
-        android:layout_below="@+id/switchAutoGenerate"
+        android:layout_below="@+id/editTextAddress"
         android:layout_marginTop="10dp"
         android:textColorHint="@color/black"
         />
