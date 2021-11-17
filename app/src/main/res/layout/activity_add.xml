@@ -54,11 +54,24 @@
         android:onClick="generate_random_address"
         />
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/buttonAdd50RandomLocations"
+        android:textColor="@color/black"
+        android:text="Add 10 Random locations directly to the Database"
+        android:layout_marginBottom="10dp"
+        android:backgroundTint="#BBC3C2"
+        android:layout_below="@+id/buttonGenerateRandomLocation"
+        android:layout_centerHorizontal="true"
+        android:onClick="add_random_locations"
+        />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/linearLayoutAddressDisplay"
-        android:layout_below="@id/buttonGenerateRandomLocation"
+        android:layout_below="@id/buttonAdd50RandomLocations"
         android:layout_marginTop="10dp"
         >
 

@@ -2,6 +2,8 @@ package com.example.locationtracker;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.location.Address;
@@ -155,8 +157,91 @@ public class AddActivity extends AppCompatActivity {
     }
 
     // Method to add 50 random locations
-    public void add_random_locations() {
-        System.out.println("Method to add 50 random locations to the database");
+    public void add_random_locations(View v) {
+        System.out.println("Method to add 10 random locations to the database");
+
+        // Create a geocoder object
+        Geocoder geocoder = new Geocoder(getApplicationContext(), Locale.getDefault());
+        LocationCRUD locationsHelper = new LocationCRUD(getApplicationContext());
+
+        // Display an alert dialog box
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(v.getContext());
+        alertDialogBuilder.setMessage("Clicking yes will add 10 new randomly generated locations to your database after which, you will be taken to the main page. Proceed?");
+
+        // Set a button and listener for positive response
+        alertDialogBuilder.setPositiveButton("Yes",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // Create a counter variable
+                        int location_counter = 0;
+
+                        while(location_counter <= 10) {
+
+                            // Generate a random latitude and longitude and display
+                            float latitude = (float) Math.random() * (180) - 90;
+                            float longitude = (float) Math.random() * (260) - 180;
+
+                            String address_final = "";
+
+                            try {
+                                List<Address> generated_addresses = geocoder.getFromLocation((double) latitude, (double) longitude, 1);
+
+                                if (generated_addresses.size() == 0) {
+                                    // Toast.makeText(v.getContext(), "Geocoder could not generate address. Try again", Toast.LENGTH_SHORT).show();
+                                    address_final = "";
+                                } else {
+                                    Address generated_address = generated_addresses.get(0); // Get the first element from the list of generated address
+
+                                    // Build a string for the final address
+                                    address_final = generated_address.getAddressLine(0).toString();
+
+                                    if (generated_address.getPostalCode() != null) {
+                                        address_final += " ";
+                                        address_final += generated_address.getPostalCode().toString();
+                                    }
+                                    Toast.makeText(v.getContext(), "Address Generated", Toast.LENGTH_SHORT).show();
+                                    location_counter++;
+                                }
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+
+                            added_location = new LocationModel(99999, address_final, latitude, longitude);
+                            System.out.println("Location " + location_counter + ": " + added_location.toString());
+
+                            // Adding last generated location
+                            if (address_final != "") {
+                                boolean result = locationsHelper.insertLocation(added_location);
+                                if (result) {
+                                    System.out.println("Location added successfully");
+                                } else {
+                                    System.out.println("Could not add location");
+                                }
+                            }
+                        }
+
+                        System.out.println("50 Random locations added");
+                        Toast.makeText(v.getContext(), "50 Random Locations have been added to the database", Toast.LENGTH_SHORT).show();
+                        Intent add_location_return = new Intent(getApplicationContext(), MainActivity.class);
+                        startActivity(add_location_return);
+                    }
+                });
+
+        // Set a button for negative response
+        alertDialogBuilder.setNegativeButton("No",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        System.out.println("Adding 50 locations not confirmed");
+                    }
+                });
+
+        // Create the dialog box with the provided attributes and listeners and show
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
+
+
     }
 
     // On click listener to add the location and return to the main activity

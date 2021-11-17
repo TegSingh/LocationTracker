@@ -1,7 +1,9 @@
 package com.example.locationtracker;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.location.Location;
 import android.view.LayoutInflater;
@@ -9,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -83,16 +86,45 @@ public class CustomAdapter extends RecyclerView.Adapter {
                 locationsHelper = new LocationCRUD(v.getContext());
 
                 System.out.println("Delete Location button clicked for location: " + locations.get(position));
-                boolean result = locationsHelper.deleteLocation(locations.get(position).getId());
-                if (result) {
-                    System.out.println("Adapter: Row deleted successfully");
-                } else {
-                    System.out.println("Could not find row to delete");
-                }
 
-                // Restart the activity upon making any changes
-                Intent deleteIntent = new Intent(context, MainActivity.class);
-                context.startActivity(deleteIntent);
+                // Display an alert dialog box
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(v.getContext());
+                alertDialogBuilder.setMessage("Are you sure you wish to delete?");
+
+                // Set a button and listener for positive response
+                alertDialogBuilder.setPositiveButton("Yes",
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                // Handle yes clicked from alert box
+                                System.out.println("Yes clicked in the alert box");
+                                boolean result = locationsHelper.deleteLocation(locations.get(position).getId());
+                                if (result) {
+                                    System.out.println("Adapter: Row deleted successfully");
+                                    Toast.makeText(v.getContext(), "Deletion successful", Toast.LENGTH_SHORT).show();
+                                } else {
+                                    System.out.println("Could not find row to delete");
+                                    Toast.makeText(v.getContext(), "Could not find row to delete", Toast.LENGTH_SHORT).show();
+                                }
+
+                                // Restart the activity upon making any changes
+                                Intent deleteIntent = new Intent(context, MainActivity.class);
+                                context.startActivity(deleteIntent);
+                            }
+                        });
+                // Set a button for negative response
+                alertDialogBuilder.setNegativeButton("No",
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                System.out.println("Delete not confirmed");
+                                Toast.makeText(v.getContext(), "Delete not confirmed", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+
+                // Create the dialog box with the provided attributes and listeners and show
+                AlertDialog alertDialog = alertDialogBuilder.create();
+                alertDialog.show();
             }
         });
     }
