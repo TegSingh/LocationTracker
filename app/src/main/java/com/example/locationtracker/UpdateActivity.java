@@ -43,7 +43,7 @@ public class UpdateActivity extends AppCompatActivity {
         // Validate input
         if (address_updated.equals("") || latitude_updated.equals("") || longitude_updated.equals("")) {
             System.out.println("Input values not provided");
-            Toast.makeText(this, "Add final values for address, latitude and longitude", Toast.LENGTH_SHORT);
+            Toast.makeText(this, "Add final values for address, latitude and longitude", Toast.LENGTH_SHORT).show();
 
         } else {
             // Get the extras value provided from the custom adapter that started the intent
