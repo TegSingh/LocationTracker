@@ -12,8 +12,11 @@
 5. App testing has been performed on different emulators and more than 100 different locations
 
 ## Helpful Tips and Instructions:
-1. When providing Latitude and Longitude for reverse geocoding/ when adding random locations, make sure to keep track of the displayed toasts, since reverse geocoding is not successful for some inaccessible locations
-2.
+1. When providing Latitude and Longitude for reverse geocoding/ when adding random locations, make sure to keep track of the displayed toasts, since **reverse geocoding** is not successful for some inaccessible locations
+2. Click on the **add 10 random locations button** the add activity page to test the functionality of the application with some random address values
+3. A single random address can also be generated using the **choose random address button**
+4. Note that the **Update page** does not validate the information. This is because it's supposed to provide complete customization access to the user
+5. The **delete** and **search** funtoinalities work the usual way
 
 ## Screenshots:
 Following are some screenshots of the running application from Pixel 3a Emulator Window
